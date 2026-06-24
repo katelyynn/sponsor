@@ -1,0 +1,27 @@
+{
+  "name": "sponsor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katelyynn/sponsor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/katelyynn/sponsor/issues"
+  },
+  "homepage": "https://github.com/katelyynn/sponsor#readme",
+  "dependencies": {
+    "@octokit/webhooks": "^14.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1"
+  }
+}
