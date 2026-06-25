@@ -13,7 +13,7 @@ export default {
         try {
             const payload_text = await req.text();
 
-            const sig = req.headers.get('X-Hub-Signature');
+            const sig = req.headers.get('X-Hub-Signature-256');
             const valid = webhooks.verify(payload_text, sig!);
 
             if (!valid) {
