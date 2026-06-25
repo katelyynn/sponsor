@@ -20,7 +20,7 @@ export default {
                 return new Response('Invalid Signature', { status: 401 });
             }
 
-            const payload = await req.json();
+            const payload = JSON.parse(payload_text);
 
             const event = req.headers.get('X-GitHub-Event');
             if (event != 'sponsorship') {
