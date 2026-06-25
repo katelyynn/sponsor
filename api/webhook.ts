@@ -29,6 +29,8 @@ export default {
 
             const { action, sponsorship } = payload;
 
+            console.log('Sponsorship payload:', payload);
+
             if (!action || !sponsorship) {
                 const discord_res = await fetch(process.env.DISCORD_WEBHOOK_URL, {
                     method: 'POST',
