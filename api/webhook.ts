@@ -29,29 +29,52 @@ export default {
 
             const { action, sponsorship } = payload;
 
+            if (!action || !sponsorship) {
+                const discord_res = await fetch(process.env.DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        content: 'test'
+                    })
+                });
+
+                if (!discord_res.ok) {
+                    console.error(`Failed to send webhook: ${discord_res.status} - ${discord_res.statusText}`);
+                    return new Response(`Failed sending to Discord`, { status: 502 });
+                }
+
+                return new Response(`Webhook sent successfully`, { status: 200 });
+            }
+
+            const login = sponsorship?.sponsor?.login || '';
+            const dollars = sponsorship?.tier?.monthly_price_in_dollars || 0;
+            const avatar = sponsorship?.sponsor?.avatar_url || '';
+
             let text = '';
 
             switch (action) {
                 case 'created':
-                    text = `*${sponsorship.sponsor.login}** sponsored for $${sponsorship.tier.monthly_price_in_dollars}`;
+                    text = `*${login}** sponsored for $${dollars}`;
                     break;
                 case 'cancelled':
-                    text = `*${sponsorship.sponsor.login}* cancelled their $${sponsorship.tier.monthly_price_in_dollars} sponsorship`;
+                    text = `*${login}* cancelled their $${dollars} sponsorship`;
                     break;
                 case 'edited':
-                    text = `*${sponsorship.sponsor.login}* edited their $${sponsorship.tier.monthly_price_in_dollars} sponsorship`;
+                    text = `*${login}* edited their $${dollars} sponsorship`;
                     break;
                 case 'pending_cancellation':
-                    text = `*${sponsorship.sponsor.login}* scheduled cancelling their $${sponsorship.tier.monthly_price_in_dollars} sponsorship`;
+                    text = `*${login}* scheduled cancelling their $${dollars} sponsorship`;
                     break;
                 case 'pending_tier_change':
-                    text = `*${sponsorship.sponsor.login}* scheduled changing sponsor tier to $${sponsorship.tier.monthly_price_in_dollars}`;
+                    text = `*${login}* scheduled changing sponsor tier to $${dollars}`;
                     break;
                 case 'tier_changed':
-                    text = `*${sponsorship.sponsor.login}* changed sponsor tier to $${sponsorship.tier.monthly_price_in_dollars}`;
+                    text = `*${login}* changed sponsor tier to $${dollars}`;
                     break;
                 default:
-                    text = `*${sponsorship.sponsor.login}* unknown`;
+                    text = `*${login}* unknown`;
                     break;
             }
 
