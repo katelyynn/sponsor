@@ -12,8 +12,10 @@ export default {
 
         try {
             const payload = await req.json();
+            const payload_text = await req.text();
+
             const sig = req.headers.get('X-Hub-Signature');
-            const valid = webhooks.verify(payload, sig!);
+            const valid = webhooks.verify(payload_text, sig!);
 
             if (!valid) {
                 return new Response('Invalid Signature', { status: 401 });
