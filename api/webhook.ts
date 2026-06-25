@@ -23,7 +23,7 @@ export default {
             const payload = JSON.parse(payload_text);
 
             const event = req.headers.get('X-GitHub-Event');
-            if (event != 'sponsorship') {
+            if (event != 'sponsorship' && event != 'ping') {
                 return new Response(`Ignored event ${event}`, { status: 200 });
             }
 
