@@ -110,13 +110,15 @@ export default {
                 }
             ];
 
-            const discord_res = await fetch(`${process.env.DISCORD_WEBHOOK_URL}?with_components=true`, {
+            const discord_res = await fetch(`${process.env.DISCORD_WEBHOOK_URL}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    components: components
+                    content: '',
+                    components: components,
+                    with_components: true
                 })
             });
 
