@@ -91,7 +91,11 @@ export default {
                         },
                         {
                             "type": 10,
-                            "content": "-# Tier\n**${sponsor_tier}**"
+                            "content": `-# Tier\n**${sponsor_tier}**`
+                        },
+                        {
+                            "type": 10,
+                            "content": `-# Cost\n**$${dollars}.00**`
                         }
                     ],
                     "accessory": {
