@@ -59,22 +59,22 @@ export default {
 
             switch (action) {
                 case 'created':
-                    text = `*${login}** sponsored ${sponsor_tier}`;
+                    text = `*${login}* sponsored!!`;
                     break;
                 case 'cancelled':
-                    text = `*${login}* cancelled ${sponsor_tier}`;
+                    text = `*${login}* cancelled their sponsorship`;
                     break;
                 case 'edited':
-                    text = `*${login}* changed to ${sponsor_tier}`;
+                    text = `*${login}* edited their sponsorship`;
                     break;
                 case 'pending_cancellation':
-                    text = `*${login}* scheduled cancelling ${sponsor_tier}`;
+                    text = `*${login}* scheduled cancellation`;
                     break;
                 case 'pending_tier_change':
-                    text = `*${login}* scheduled changing to ${sponsor_tier}`;
+                    text = `*${login}* scheduled changing tier`;
                     break;
                 case 'tier_changed':
-                    text = `*${login}* changed to ${sponsor_tier}`;
+                    text = `*${login}* changed tier`;
                     break;
                 default:
                     text = `*${login}* unknown`;
@@ -88,14 +88,17 @@ export default {
                         {
                             "type": 10,
                             "content": `### ${text}`
+                        },
+                        {
+                            "type": 10,
+                            "content": "-# Tier\n**${sponsor_tier}**"
                         }
                     ],
                     "accessory": {
                         "type": 11,
                         "media": {
                             "url": avatar
-                        },
-                        "description": "avatar"
+                        }
                     }
                 },
                 {
