@@ -92,7 +92,7 @@ export default {
                     "accessory": {
                         "type": 11,
                         "media": {
-                            "url": sponsorship.sponsor.avatar_url
+                            "url": avatar
                         },
                         "description": "avatar"
                     }
@@ -110,7 +110,7 @@ export default {
                 }
             ];
 
-            const discord_res = await fetch(process.env.DISCORD_WEBHOOK_URL, {
+            const discord_res = await fetch(`${process.env.DISCORD_WEBHOOK_URL}?with_components=true`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
