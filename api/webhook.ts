@@ -52,28 +52,29 @@ export default {
 
             const login = sponsorship?.sponsor?.login || '';
             const dollars = sponsorship?.tier?.monthly_price_in_dollars || 0;
+            const sponsor_tier = sponsorship?.tier?.name || '';
             const avatar = sponsorship?.sponsor?.avatar_url || '';
 
             let text = '';
 
             switch (action) {
                 case 'created':
-                    text = `*${login}** sponsored for $${dollars}`;
+                    text = `*${login}** sponsored ${sponsor_tier}`;
                     break;
                 case 'cancelled':
-                    text = `*${login}* cancelled their $${dollars} sponsorship`;
+                    text = `*${login}* cancelled ${sponsor_tier}`;
                     break;
                 case 'edited':
-                    text = `*${login}* edited their $${dollars} sponsorship`;
+                    text = `*${login}* changed to ${sponsor_tier}`;
                     break;
                 case 'pending_cancellation':
-                    text = `*${login}* scheduled cancelling their $${dollars} sponsorship`;
+                    text = `*${login}* scheduled cancelling ${sponsor_tier}`;
                     break;
                 case 'pending_tier_change':
-                    text = `*${login}* scheduled changing sponsor tier to $${dollars}`;
+                    text = `*${login}* scheduled changing to ${sponsor_tier}`;
                     break;
                 case 'tier_changed':
-                    text = `*${login}* changed sponsor tier to $${dollars}`;
+                    text = `*${login}* changed to ${sponsor_tier}`;
                     break;
                 default:
                     text = `*${login}* unknown`;
@@ -110,15 +111,14 @@ export default {
                 }
             ];
 
-            const discord_res = await fetch(`${process.env.DISCORD_WEBHOOK_URL}`, {
+            const discord_res = await fetch(`${process.env.DISCORD_WEBHOOK_URL}?with_components=true`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    content: '',
-                    components: components,
-                    with_components: true
+                    flags: 32768,
+                    components: components
                 })
             });
 
